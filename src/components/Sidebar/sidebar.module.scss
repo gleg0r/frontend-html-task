@@ -1,0 +1,179 @@
+@import '../../styles/variables.scss';
+
+@keyframes disappearing {
+    0% {
+        display: block;
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        display: block;
+        transform: translateX(50px);
+        opacity: 0;
+    }
+}
+
+@keyframes closingSidebar {
+    0% {
+        width: 200px;
+    }
+    50% {
+        width: 144px;
+    }
+    100% {
+        width: 88px;
+    }
+}
+
+@keyframes appearingMain {
+    0% {
+        display: block;
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+    100% {
+        display: block;
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes appearingFooter {
+    0% {
+        display: block;
+        transform: translateY(100px);
+        opacity: 0;
+    }
+    100% {
+        display: block;
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes openingSidebar {
+    0% {
+        width: 88px;
+    }
+    50% {
+        width: 144px;
+    }
+    100% {
+        width: 200px;
+    }
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin: 20px;
+    background: $sidebarBg;
+    color: $textPrimary;
+    width: 200px;
+    height: 96vh;
+    gap: 20px;
+    border-radius: 12px;
+    border: 2px solid $backgoundLight;
+    outline: 1px solid $sidebarBg;
+    position: relative;
+    animation: openingSidebar .2s linear;
+    &__closed {
+        @extend .sidebar;
+        animation: closingSidebar .2s linear;
+        width: 88px;
+    } 
+    &__btn {
+        position: absolute;
+        top: 30px;
+        right: -14px;
+        background: $backgoundLight;
+        outline: 0;
+        border: 0;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        transition: .3s;
+        &_closed {
+            @extend .sidebar__btn;
+            right: -40px;
+            background: $sidebarBg;
+        }
+    }
+    &__header {
+        display: flex;
+        gap: 5px;
+        padding: 9px;
+    }
+    &__title {
+        color: $textPrimaryActive;
+        font-size: 18px;
+        font-weight: 700;
+        animation: appearingMain .3s linear;
+        opacity: 1;
+        &_closed {
+            @extend .sidebar__title;
+            animation: disappearing .2s;
+            display: none;
+        }
+    }
+    &__img {
+        width: 24px;
+        height: 24px;
+    }
+    &__items {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
+    &__main {
+        display: flex;
+        flex-direction: column;
+        justify-self: flex-start;
+        gap: 10px;
+    }
+    &__footer {
+        display: flex;
+        flex-direction: column;
+        justify-self: flex-start;
+        gap: 10px;
+    }
+    &__item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px;
+        cursor: pointer;
+        border-radius: 12px;
+        transition: .5s;
+        font-weight: 500;
+        &:hover {
+            color: $textPrimaryHover;
+            background: $backgroundHover;
+        }
+        &_active {
+            @extend .sidebar__item;
+            color: $textPrimaryActive;
+            background: $backgroundActive;
+            &:hover {
+                color: $textPrimaryActive;
+                background: $backgroundActive;
+            }
+        }
+    }
+    &__textMain {
+        animation: appearingMain .3s linear;
+        opacity: 1;
+    }
+    &__textFooter {
+        animation: appearingFooter .3s linear;
+        opacity: 1;
+    }
+    &__textClosed {
+        font-weight: 500;
+        animation: disappearing .2s;
+        opacity: 0;
+    }
+}
